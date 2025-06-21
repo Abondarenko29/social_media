@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load markdownify %}
+{% load markdown_extras %}
+{% load static %}
+
+{% block content %}
+    <div class="hat">
+        <div class="line">
+            <div>
+                <h2>{{ user.username }}</h1>
+            </div>
+            <div>
+                <small>created at: {{ user.profile.created_at }}<br>
+                                    changed at: {{ user.profile.changed_at }}</small>
+            </div>
+        </div>
+    </div>
+    <div class="userinfo-body">
+        <p class="title">
+            Name: {{ user.first_name }} {{ user.last_name }}
+        </p>
+        <p class="title">
+            Country: {{ user.profile.country.name }}
+        </p>
+        Description:
+        <div class="description">
+            {{ user.profile.description|markdownify|linebreaks }}
+        </div>
+    </div>
+{% endblock %}

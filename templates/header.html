@@ -1,0 +1,86 @@
+{% load static %}
+<header>
+    <div class="nav-panel">
+        <div class="p-heading-icon">
+            <a href="{% url 'home' %}" class="nav-logo">
+                <div class="p-heading-icon__header">
+                    <img class="p-heading-icon__img" width="50px" height="50px" src="{% static 'img/logo.jpg' %}" alt="">
+                    <h3 class="p-heading-icon__title">Social media</h3>
+                </div>
+            </a>
+        </div>
+        <div class="p-search-and-filter">
+            <div class="p-search-and-filter__search-container" aria-expanded="false" data-active="true" data-empty="true">
+                <form class="p-search-and-filter__box" data-overflowing="false">
+                    <label class="u-off-screen" for="search">Search</label>
+                    <input autocomplete="off" class="p-search-and-filter__input" id="search" name="search" placeholder="Search" type="search" value="">
+                    <button alt="search" class="p-search-and-filter__search-button" type="submit">Search</button>
+                </form>
+            </div>
+            <div class="p-search-and-filter__panel" aria-hidden="true">
+
+                <div class="p-filter-panel-section">
+                    <h5 class="p-filter-panel-section__heading">Cloud</h5>
+                    <div class="p-filter-panel-section__chips" aria-expanded="false">
+                        <button class="p-chip"><span class="p-chip__lead">CLOUD</span><span class="p-chip__value">Google</span></button>
+                        <button class="p-chip"><span class="p-chip__lead">CLOUD</span><span class="p-chip__value">AWS</span></button>
+                        <button class="p-chip"><span class="p-chip__lead">CLOUD</span><span class="p-chip__value">Azure</span></button>
+                    </div>
+                </div>
+
+                <div class="p-filter-panel-section">
+                    <h5 class="p-filter-panel-section__heading">Region</h5>
+                    <div class="p-filter-panel-section__chips" aria-expanded="false">
+                        <button class="p-chip"><span class="p-chip__lead">REGION</span><span class="p-chip__value">us-east1</span></button>
+                        <button class="p-chip"><span class="p-chip__lead">REGION</span><span class="p-chip__value">us-north2</span></button>
+                        <button class="p-chip"><span class="p-chip__lead">REGION</span><span class="p-chip__value">us-south3</span></button>
+                        <button class="p-chip"><span class="p-chip__lead">REGION</span><span class="p-chip__value">us-north4</span></button>
+                        <button class="p-chip"><span class="p-chip__lead">REGION</span><span class="p-chip__value">us-east5</span></button>
+                        <button class="p-chip"><span class="p-chip__lead">REGION</span><span class="p-chip__value">us-south6</span></button>
+                        <button class="p-chip"><span class="p-chip__lead">REGION</span><span class="p-chip__value">us-east7</span></button>
+                        <button class="p-chip"><span class="p-chip__lead">REGION</span><span class="p-chip__value">us-east8</span></button>
+                        <button class="p-chip"><span class="p-chip__lead">REGION</span><span class="p-chip__value">us-east9</span></button>
+                        <button class="p-chip"><span class="p-chip__lead">REGION</span><span class="p-chip__value">us-east10</span></button>
+                    </div>
+                </div>
+
+                <div class="p-filter-panel-section">
+                    <h5 class="p-filter-panel-section__heading">Owner</h5>
+                    <div class="p-filter-panel-section__chips" aria-expanded="false">
+                        <button class="p-chip"><span class="p-chip__lead">OWNER</span><span class="p-chip__value">foo</span></button>
+                        <button class="p-chip"><span class="p-chip__lead">OWNER</span><span class="p-chip__value">bar</span></button>
+                        <button class="p-chip"><span class="p-chip__lead">OWNER</span><span class="p-chip__value">baz</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <button class="nav-button" id="open-sidebar">
+                <span class="p-icon--menu"></span>
+            </button>
+    </div>
+    <div class="sidebar-closed" id="sidebar">
+        {% if request.user.is_authenticated %}
+            <a href="#">Subsriptions</a><br>
+            <a href="{% url 'logout' %}">Logout</a><br>
+            <details>
+                <summary>
+                    <a href="{% url 'user-details' pk=request.user.pk %}">{{ request.user.username }}</a>
+                </summary>
+                <ul>
+                    <li><a href="{% url 'user-update' %}">Update</a></li>
+                    <li><a href="{% url 'user-delete' %}">Delete</a></li>
+                </ul>
+            </details>
+        {% else %}
+            <div style="display: flex;">
+                <a href="{% url 'login' %}">Login</a>|
+                <a href="{% url 'register' %}">Register</a>
+            </div>
+        {% endif %}
+            <button id="close-sidebar" class="sidebar-close-button">
+                <span class="p-icon--close"></span>
+            </button>
+        </div>
+    </div>
+</header>

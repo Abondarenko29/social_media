@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="form">
+    <div class="center">
+        <h2>Step 2: add not required information (you can skip it)</h2>
+    </div>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% for field in profile_form %}
+            <div class="field">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    <div class="red">{{ field.errors }}</div>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        {% if messages %}
+            <div>
+                {% for message in messages %}
+                    <p class="red">{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        <div class="update-profile-buttons">
+            <button type="submit" class="submit-form">update</button>
+            <a class="submit-form skip" href="{% url 'home' %}">skip</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

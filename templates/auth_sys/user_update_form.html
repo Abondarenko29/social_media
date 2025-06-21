@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="form">
+    <div class="center">
+        <h2>Update youself</h2>
+    </div>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% for field in user_form %}
+            <div class="field">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    <div class="red">{{ field.errors }}</div>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        {% for field in profile_form %}
+            <div class="field">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    <div class="red">{{ field.errors }}</div>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <div class="field">
+            <label>password</label><br>
+            <a href="{% url 'user-update-password' %}" class="input">Update password</a>
+        </div>
+
+        {% if messages %}
+            <div>
+                {% for message in messages %}
+                    <p class="red">{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        <button type="submit" class="submit-form">update</button>
+    </form>
+</div>
+{% endblock %}
