@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="form">
+    <div class="center">
+        <h2>Make post</h2>
+    </div>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% for field in post_form %}
+            <div class="field">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    <div class="red">{{ field.errors }}</div>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <div class="field">
+            <label for="tag">tags (one word which starts from '#'):</label>
+            <textarea placeholder="#tag" name="tag"
+                class="no-resize" rows="5" value="{{ tags }}"></textarea>
+        </div>
+
+        {% if messages %}
+            <div>
+                {% for message in messages %}
+                    <p style="color: red;">{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <button type="submit" class="submit-form">Post</button>
+    </form>
+</div>
+{% endblock %}

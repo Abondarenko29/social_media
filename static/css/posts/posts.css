@@ -1,0 +1,147 @@
+* {box-sizing: border-box}
+
+.mySlides {display: none}
+.post-media img, video {vertical-align: middle;
+  width:100%;
+  border-radius: 10px;
+  max-height: 80vh;
+  object-fit: contain;
+}
+
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+}
+
+.prev, .next, .more {
+  cursor: pointer;
+  position: absolute;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+.next, .prev {
+  top: 50%;
+}
+
+.more {
+  top: 0;
+  right: 0;
+  margin-top: 2px;
+  color: white !important;
+}
+
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+.prev:hover, .next:hover, .more:hover {
+  background-color: rgba(0,0,0,0.8);
+  border-radius: 50%;
+}
+
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+.post-info {
+  position: absolute;
+  color: rgb(245, 170, 20);
+  top: 15%;
+  right: 0;
+  margin-top: 2px;
+  margin-right: 10px;
+}
+
+.likes {
+  margin-top: 10px;
+  display: flex;
+  justify-self: center;
+}
+
+.post-info, .more {
+  z-index: 5;
+  margin-left: 5px !important;
+}
+
+.like-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-bottom: 0;
+  background-color: transparent;
+  border: none;
+  font-size: 300%;
+  padding: 0;
+  color: #717171;
+}
+
+.like-btn:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  color: red;
+}
+
+.like-btn.active {
+  color: red;
+}
+
+.like-btn.active:hover {
+  color: #717171;
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+@media only screen and (max-width: 300px) {
+  .prev, .next,.text {font-size: 11px}
+}
+
+.post-details {
+  color: rgb(245, 170, 20);
+}

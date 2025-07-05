@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load customtags %}
+{% load static %}
+
+{% block link %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/posts/posts.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="post-media">
+        {% if post.content.url|is_video %}
+            <video controls>
+                <source src="{{ post.content.url }}"></source>
+            </video>
+        {% elif post.content.url|is_image %}
+            <img class="materialboxed" src="{{ post.content.url }}">
+        {% endif %}
+    </div>
+    <div class="post-details">
+        <h4 class="">{{ post.title }}</h4>
+        <p class="">{{ post.description }}
+            <div class="">
+                {% for tag in post.tags.all %}
+                    #{{ tag }}<br>
+                {% endfor %}
+            </div>
+        </p>
+        <div class="form">
+            <form method="post">
+                {% csrf_token %}
+                {{ comment_form.as_p }}
+                <button type="submit" class="">✔</button>
+            </form>
+        </div>
+        <p class="">
+            {% for comment in post.comments.all %}
+                <div class="">
+                    <div class="comment-info">
+                        <div class="flex">
+                            <a class="user-info" href="{% url 'user-details' pk=user.pk %}">
+                                {% if user.profile.logo %}
+                                    <img class="logo-img" src="{{ user.profile.logo.url }}" width="40px" height="40px">
+                                {% else %}
+                                    <img class="logo-img" src="{% static 'img/no_photo.png' %}" width="40px" height="40px">
+                                {% endif %}
+                                {{ comment.author.username }}
+                            </a>
+                        </div>
+                        <div>
+                            {{ comment.created_at }}
+                            {% if comment.created_at != comment.changed_at %}
+                                (changed: {{ comment.changed_at }})
+                            {% endif %}
+                        </div>
+                    </div>
+                    <p class="">
+                        {{ comment.content }}
+                    </p>
+                </div>
+            {% endfor %}
+        </p>
+    </div>
+    {% if messages %}
+        {% for message in messages %}
+            <script>
+                alert("{{ message }}");
+            </script>
+        {% endfor %}
+    {% endif %}
+    <script src="{% static 'js/posts/slides.js' %}"></script>
+{% endblock %}

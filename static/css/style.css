@@ -53,6 +53,7 @@ a.nav-logo {
     bottom: 0;
     color: white;
     padding: 10px;
+    z-index: 100;
 }
 
 .sidebar-opened a {
@@ -82,10 +83,6 @@ div.form {
 
 div.form .editor-toolbar a {
     color: yellow !important;
-}
-
-.red {
-    color: red;
 }
 
 div.form label {
@@ -214,6 +211,29 @@ a.skip {
     text-align: center;
 }
 
+.no-resize {
+    resize: none;
+    height: auto !important;
+}
+
+.flex {
+    display: flex;
+}
+
+.logo-img {
+    border-radius: 50%;
+    border: 1px solid white;
+    margin-right: 5px;
+}
+
+a.user-info {
+    display: flex;
+    text-decoration: none;
+    cursor: pointer;
+    text-align: center;
+    color: inherit;
+}
+
 @media (max-width: 1024px) or (min-height:700px) {
     footer {
         visibility: hidden;
@@ -263,6 +283,8 @@ a.skip {
     .hat {
         box-shadow:
             5px 5px 5px 10px rgba(245, 170, 20, 0.7);
+            padding-right: 10px;
+            padding-left: 10px;
     }
 }
 

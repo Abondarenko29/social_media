@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <form>
+    <select name="topic">
+      <option value="some">Some</option>
+      <option value="other">Other</option>
+    </select>
+    <button type="submit">Sort</button>
+  </form>
+  {% for group in groups %}
+    <div class="p-card">
+      <img class="p-card__thumbnail" src="https://assets.ubuntu.com/v1/31bd2627-logo-raspberry-pi.svg" alt="">
+      <hr class="u-sv1">
+      <h3>{{ group.title }}</h3>
+      <p class="p-card__content">{{ group.description }}</p>
+    </div>
+  {% endfor %}
+{% endblock %}

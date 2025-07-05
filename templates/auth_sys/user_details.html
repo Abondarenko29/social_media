@@ -6,8 +6,13 @@
 {% block content %}
     <div class="hat">
         <div class="line">
-            <div>
-                <h2>{{ user.username }}</h1>
+            <div class="flex">
+                {% if user.profile.logo %}
+                    <img class="logo-img" src="{{ user.profile.logo.url }}" width="80px" height="80px">
+                {% else %}
+                    <img class="logo-img" src="{% static 'img/no_photo.png' %}" width="80px" height="80px">
+                {% endif %}
+                <h2>{{ user.username }}</h2>
             </div>
             <div>
                 <small>created at: {{ user.profile.created_at }}<br>

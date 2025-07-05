@@ -62,7 +62,7 @@
     <div class="sidebar-closed" id="sidebar">
         {% if request.user.is_authenticated %}
             <a href="#">Subsriptions</a><br>
-            <a href="{% url 'logout' %}">Logout</a><br>
+            <a href="{% url 'post-create' %}">➕ post</a><br>
             <details>
                 <summary>
                     <a href="{% url 'user-details' pk=request.user.pk %}">{{ request.user.username }}</a>
@@ -70,6 +70,7 @@
                 <ul>
                     <li><a href="{% url 'user-update' %}">Update</a></li>
                     <li><a href="{% url 'user-delete' %}">Delete</a></li>
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
                 </ul>
             </details>
         {% else %}

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load customtags %}
+
+{% block link %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/posts/posts.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="slideshow-container">
+        {% for post in posts %}
+
+            <div class="mySlides fade">
+                <div class="post-info">
+                    <div class="flex">
+                        <a class="user-info" href="{% url 'user-details' pk=user.pk %}">
+                            {% if user.profile.logo %}
+                                <img class="logo-img" src="{{ user.profile.logo.url }}" width="40px" height="40px">
+                            {% else %}
+                                <img class="logo-img" src="{% static 'img/no_photo.png' %}" width="40px" height="40px">
+                            {% endif %}
+                            {{ post.author.username }}
+                        </a>
+                    </div>
+                    <div class="likes">
+                        <form method="post">
+                            {% csrf_token %}
+                                {% if post.likes.count %}
+                                    <button type="submit" class="like-btn active">❤</button>
+                                {% else %}
+                                    <button type="submit" class="like-btn">❤</button>
+                                {% endif %}
+                            <input type="hidden" value="{{ post.pk }}" name="post">
+                            <input type="hidden" name="slide">
+                        </form>
+                        {{ post.likes.count }}
+                    </div>
+                </div>
+                <a class="more" href="{% url 'post-details' pk=post.pk %}">↗</a>
+                {% if post.content.url|is_video %}
+                    <video autoplay controls>
+                        <source src="{{ post.content.url }}"></source>
+                    </video>
+                {% elif post.content.url|is_image %}
+                    <img class="materialboxed" src="{{ post.content.url }}">
+                {% endif %}
+            </div>
+        {% endfor %}
+    <a class="prev" onclick="plusSlides(-1)">❮</a>
+    <a class="next" onclick="plusSlides(1)">❯</a>
+    </div>
+    <script src="{% static 'js/posts/slides.js' %}"></script>
+{% endblock %}
