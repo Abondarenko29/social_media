@@ -62,6 +62,7 @@
     <div class="sidebar-closed" id="sidebar">
         {% if request.user.is_authenticated %}
             <a href="#">Subsriptions</a><br>
+            <a href="{% url 'group-list' %}">Groups</a><br>
             <a href="{% url 'post-create' %}">➕ post</a><br>
             <details>
                 <summary>

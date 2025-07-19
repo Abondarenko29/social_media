@@ -9,7 +9,7 @@ class Group(models.Model):
     owner = models.ForeignKey(User, on_delete=models.SET_NULL,
                               null=True, related_name="groups_owner")
     members = models.ManyToManyField(User, related_name="groups_member")
-    description = models.TextField()
+    description = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.title

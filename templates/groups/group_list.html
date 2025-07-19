@@ -1,19 +1,46 @@
 {% extends 'base.html' %}
 
+{% load static %}
+{% load markdownify %}
+{% load markdown_extras %}
+
+{% block link %}
+  <link rel="stylesheet" href="{% static 'css/groups/groups.css' %}">
+{% endblock %}
+
 {% block content %}
-  <form>
-    <select name="topic">
-      <option value="some">Some</option>
-      <option value="other">Other</option>
+<div class="group_list_body">
+  <form class="flex">
+    <label for="topic" class="topic-label">Category:</label>
+    <select name="topic" onchange="this.form.submit();">
+      <option selected hidden>{{ choosed }}</option>
+      <option value="">All categories</option>
+      {% for topic in topics %}
+        <option value="{{ topic }}">{{ topic }}</option>
+      {% endfor %}
     </select>
-    <button type="submit">Sort</button>
+    <a class="add-group-button" href="{% url 'group-create' %}">+</a>
   </form>
   {% for group in groups %}
     <div class="p-card">
-      <img class="p-card__thumbnail" src="https://assets.ubuntu.com/v1/31bd2627-logo-raspberry-pi.svg" alt="">
+      <div class="flex space-between">
+        <a class="" href="{% url 'user-details' pk=user.pk %}">
+            {% if group.owner.profile.logo %}
+                <img class="p-card__thumbnail" src="{{ group.owner.profile.logo.url }}">
+            {% else %}
+                <img class="p-card__thumbnail" src="{% static 'img/no_photo.png' %}">
+            {% endif %}
+            {{ group.owner.username }}
+        </a>
+        <div>
+          <a href="{% url 'group-update' pk=group.pk %}" class="small-margin-right">🛠</a>
+          <a href="#">⇲</a>
+        </div>
+      </div>
       <hr class="u-sv1">
       <h3>{{ group.title }}</h3>
-      <p class="p-card__content">{{ group.description }}</p>
+      <p class="p-card__content">{{ group.description|markdownify|linebreaks }}</p>
     </div>
   {% endfor %}
+</div>
 {% endblock %}

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+    <head>
+        <title>Edit comment</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@materializecss/materialize@2.2.2/dist/css/materialize.min.css">
+        <link rel="stylesheet" href="https://assets.ubuntu.com/v1/vanilla-framework-version-4.24.0.min.css">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/posts/posts.css' %}">
+    </head>
+    <body>
+        <div class="comment-form">
+            <form method="post" id="main-comment-form">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="">✔</button>
+            </form>
+        </div>
+        <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@materializecss/materialize@2.2.2/dist/js/materialize.min.js"></script>
+    </body>
+</html>

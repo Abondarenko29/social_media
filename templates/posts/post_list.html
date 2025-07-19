@@ -16,8 +16,8 @@
                 <div class="post-info">
                     <div class="flex">
                         <a class="user-info" href="{% url 'user-details' pk=user.pk %}">
-                            {% if user.profile.logo %}
-                                <img class="logo-img" src="{{ user.profile.logo.url }}" width="40px" height="40px">
+                            {% if post.author.profile.logo %}
+                                <img class="logo-img" src="{{ post.author.profile.logo.url }}" width="40px" height="40px">
                             {% else %}
                                 <img class="logo-img" src="{% static 'img/no_photo.png' %}" width="40px" height="40px">
                             {% endif %}
@@ -27,13 +27,12 @@
                     <div class="likes">
                         <form method="post">
                             {% csrf_token %}
-                                {% if post.likes.count %}
+                                {% if post.pk|is_like_author:request.user.pk %}
                                     <button type="submit" class="like-btn active">❤</button>
                                 {% else %}
                                     <button type="submit" class="like-btn">❤</button>
                                 {% endif %}
                             <input type="hidden" value="{{ post.pk }}" name="post">
-                            <input type="hidden" name="slide">
                         </form>
                         {{ post.likes.count }}
                     </div>

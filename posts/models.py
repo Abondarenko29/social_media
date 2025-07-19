@@ -86,6 +86,9 @@ class Comment(models.Model):
     changed_at = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User, on_delete=models.SET_NULL,
                                related_name="comments", null=True)
+    replied_comment = models.ForeignKey("self", on_delete=models.CASCADE,
+                                        related_name="replied_comments",
+                                        null=True, blank=True)
     post = models.ForeignKey(Post, on_delete=models.CASCADE,
                              related_name="comments", null=True, blank=True)
     stream = models.ForeignKey(Stream, on_delete=models.CASCADE,

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "posts",
     "index",
     "groups",
+    "chat",
 ]
 
 MIDDLEWARE = [

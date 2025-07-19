@@ -234,6 +234,14 @@ a.user-info {
     color: inherit;
 }
 
+.small-margin-right {
+    margin-right: 10px;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
 @media (max-width: 1024px) or (min-height:700px) {
     footer {
         visibility: hidden;

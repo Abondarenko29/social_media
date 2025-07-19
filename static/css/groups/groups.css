@@ -1,0 +1,59 @@
+div.group_list_body {
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.p-card {
+    background-color: transparent;
+    color: rgb(245, 170, 20);
+    border-color: white;
+}
+
+.p-card .u-sv1 {
+    background: white;
+}
+
+.p-card a {
+    text-decoration: none;
+    color: rgb(245, 170, 20);
+    font-size: 24px;
+}
+
+.group_list_body select {
+    background-color: transparent;
+    color: rgb(245, 170, 20);
+    border: 1px solid white;
+}
+
+.topic-label {
+    color: rgb(245, 170, 20);
+    font-size: 100%;
+    margin-right: 10px;
+}
+
+.add-group-button {
+    display: flex;
+    border: 1px solid rgb(120, 20, 60);
+    position: relative;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    background-color: rgb(220, 20, 60);
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.add-group-button,
+.add-group-button:link,
+.add-group-button:visited,
+.add-group-button:hover,
+.add-group-button:active {
+    color: white;
+    text-decoration: none !important;
+}
+
+.add-group-button:hover {
+    border: 1px solid rgb(220, 20, 60);
+    background-color: rgb(255, 20, 60);
+}

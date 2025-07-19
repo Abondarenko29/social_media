@@ -1,0 +1,68 @@
+{% load static %}
+{% load customtags %}
+
+{% for comment in comments %}
+    <div class="comment">
+        <div class="comment-info">
+            <div class="flex">
+                <a class="user-info" href="{% url 'user-details' pk=comment.author.pk %}">
+                    {% if comment.author.profile.logo %}
+                        <img class="logo-img" src="{{ comment.author.profile.logo.url }}" width="40px" height="40px">
+                    {% else %}
+                        <img class="logo-img" src="{% static 'img/no_photo.png' %}" width="40px" height="40px">
+                    {% endif %}
+                    {{ comment.author.username }}
+                </a>
+            </div>
+            <div>
+                {{ comment.created_at }}
+                {% if comment.created_at != comment.changed_at %}
+                    (changed: {{ comment.changed_at }})
+                {% endif %}
+            </div>
+        </div>
+        <p class="comment-content">
+            {{ comment.content }}
+        </p>
+        <div class="comment-footer">
+            <div class="flex">
+                {% if comment.replied_comments.exists %}
+                    <button onclick="toggleReplies({{ comment.pk }}, this)" class="replies">Replies ↷</button>
+                {% else %}
+                    <empty></empty>
+                {% endif %}
+                <button onclick="showForm({{ comment.pk }}, this)" class="answer">Answer</button>
+            </div>
+            <div class="flex">
+                <form method="post" action="{% url 'comment-like-create' pk=comment.pk %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="comment-like-form" value="True">
+                    {{ comment.likes.count }}
+                    {% if comment.pk|is_commentlike_author:request.user.pk %}
+                        <button type="submit" class="like-btn small active">❤</button>
+                    {% else %}
+                        <button type="submit" class="like-btn small">❤</button>
+                    {% endif %}
+                    <input type="hidden" value="{{ comment.pk }}" name="post">
+                </form>
+                <button onclick="showMenu({{comment.pk}})" class="menu-button">⫶</button>
+            </div>
+        </div>
+        <div class="menu flex closed" id="inner-menu{{ comment.pk }}">
+            <a href="{% url 'comment-update' pk=comment.pk %}" data-popup="yes">Edit</a>
+            <a href="#" data-popup="yes">Delete</a>
+        </div>
+    </div>
+    <div class="comment-form not-main closed" id="comment-form{{ comment.pk }}">
+        <form method="post" onsubmit="submitForm({{ comment.pk }})">
+            {% csrf_token %}
+            <input type="hidden" name="replied_comment" value="{{ comment.pk }}">
+            {{ comment_form.as_p }}
+            <button type="submit" class="">✔</button>
+        </form>
+    </div>
+    <div class="replied_comments closed" id="comment-list{{ comment.pk }}">
+        {% include 'posts/post_comments.html' with comments=comment|filter:post %}
+    </div>
+{% endfor %}
+<script src="{% static 'js/posts/replies.js' %}"></script>

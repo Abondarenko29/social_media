@@ -18,47 +18,35 @@
         {% endif %}
     </div>
     <div class="post-details">
-        <h4 class="">{{ post.title }}</h4>
-        <p class="">{{ post.description }}
-            <div class="">
-                {% for tag in post.tags.all %}
-                    #{{ tag }}<br>
-                {% endfor %}
+        <div class="flex first-line">
+            <h4>{{ post.title }}</h4>
+            <div class="flex">
+                <h4 class="small-margin-right">{{ post.likes.count }}</h4>
+                <form method="post" action="{% url 'like-create' pk=post.pk %}">
+                    {% csrf_token %}
+                        {% if post.pk|is_like_author:request.user.pk %}
+                            <button type="submit" class="like-btn active">❤</button>
+                        {% else %}
+                            <button type="submit" class="like-btn">❤</button>
+                        {% endif %}
+                    <input type="hidden" value="{{ post.pk }}" name="post">
+                </form>
             </div>
+        </div>
+        <p class="description">{{ post.description }}<br>
+            {% for tag in post.tags.all %}
+                #{{ tag }}<br>
+            {% endfor %}
         </p>
-        <div class="form">
-            <form method="post">
+        <div class="comment-form">
+            <form method="post" id="main-comment-form">
                 {% csrf_token %}
                 {{ comment_form.as_p }}
                 <button type="submit" class="">✔</button>
             </form>
         </div>
         <p class="">
-            {% for comment in post.comments.all %}
-                <div class="">
-                    <div class="comment-info">
-                        <div class="flex">
-                            <a class="user-info" href="{% url 'user-details' pk=user.pk %}">
-                                {% if user.profile.logo %}
-                                    <img class="logo-img" src="{{ user.profile.logo.url }}" width="40px" height="40px">
-                                {% else %}
-                                    <img class="logo-img" src="{% static 'img/no_photo.png' %}" width="40px" height="40px">
-                                {% endif %}
-                                {{ comment.author.username }}
-                            </a>
-                        </div>
-                        <div>
-                            {{ comment.created_at }}
-                            {% if comment.created_at != comment.changed_at %}
-                                (changed: {{ comment.changed_at }})
-                            {% endif %}
-                        </div>
-                    </div>
-                    <p class="">
-                        {{ comment.content }}
-                    </p>
-                </div>
-            {% endfor %}
+            {% include 'posts/post_comments.html' with comments=None|filter:post %}
         </p>
     </div>
     {% if messages %}
