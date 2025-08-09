@@ -61,3 +61,31 @@ const simplemde = new SimpleMDE({
     "image", "preview", "guide", 
   ],
 });
+
+function newWindow(url) {
+    var height = window.innerHeight * 0.3;
+    var width = window.innerWidth;
+
+    if ((width > height) || (width == height)) {
+        var width = width * 0.5
+    }
+    window.open(url, 'popupWindow',
+        `resizable=no, scrollbars=no,
+        height=${height}, width=${width}`);
+}
+
+function showMessages() {
+    var message_list = document.getElementById("message-list");
+    if (message_list.classList.contains("closed")) {
+        message_list.classList.remove("closed");
+    }
+    else {
+        message_list.classList.add("closed");
+    };
+}
+
+function submitSearchForm(event, form) {
+  if (event.key === "Enter") {
+    form.submit();
+  }
+};

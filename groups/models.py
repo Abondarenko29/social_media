@@ -26,7 +26,11 @@ class Article(models.Model):
                                null=True, related_name="articles")
     title = models.CharField(max_length=255)
     content = models.TextField()
-    media = models.FileField(upload_to="groups/article")
+    parrent_article = models.ForeignKey("self", on_delete=models.CASCADE,
+                                        related_name="dother_articles",
+                                        null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    changed_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.title
@@ -34,3 +38,30 @@ class Article(models.Model):
     class Meta:
         verbose_name = "article"
         verbose_name_plural = "articles"
+
+
+class Media(models.Model):
+    media = models.FileField(upload_to="groups/articles/")
+    article = models.ForeignKey(Article, on_delete=models.CASCADE,
+                                related_name="media")
+
+    def __str__(self):
+        return self.media.name
+
+    class Meta:
+        verbose_name = "media"
+        verbose_name_plural = "media"
+
+
+class Like(models.Model):
+    author = models.ForeignKey(User, on_delete=models.DO_NOTHING,
+                               related_name="post_likes")
+    article = models.ForeignKey(Article, on_delete=models.CASCADE,
+                                related_name="likes")
+
+    def __str__(self):
+        return f"{self.author.username} - {self.article.title}"
+
+    class Meta:
+        verbose_name = "like"
+        verbose_name_plural = "likes"

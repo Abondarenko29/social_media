@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
         <link rel="stylesheet" href="{% static 'css/posts/posts.css' %}">
     </head>
-    <body>
+    <body id="comment-update-body">
         <div class="comment-form">
             <form method="post" id="main-comment-form">
                 {% csrf_token %}

@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
+{% load news %}
+
 <html>
     <head>
         <meta charset="UTF-8">
@@ -12,7 +14,22 @@
     <body>
         {% include 'header.html' %}
         {% block content %}{% endblock %}
-        {% include 'footer.html' %}
+
+        {% if request.user.is_authenticated %}
+            <div class="widgets">
+                <a href="{% url 'post-list' %}" style="color: white;">🎞</a>
+                    <empty class="white">|</empty>
+                <a onclick="showMessages()">🔔</a>
+            </div>
+
+            <div class="closed news-list" id="message-list">
+                {% for message in request|messages %}
+                    <p>{{ message|safe }}<hr>
+                    </p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
         <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
         <script src="{% static 'js/main.js' %}"></script>
         <script src="https://cdn.jsdelivr.net/npm/@materializecss/materialize@2.2.2/dist/js/materialize.min.js"></script>

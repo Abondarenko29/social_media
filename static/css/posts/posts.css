@@ -199,12 +199,6 @@ div.comment-form input {
   margin-left: 5%;
 }
 
-.closed {
-  visibility: hidden;
-  height: 0;
-  padding: 0 !important;
-}
-
 button.replies, button.answer {
   border-radius: 20px;
   border: none;

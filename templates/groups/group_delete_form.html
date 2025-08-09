@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="form center">
+    <form method="post">
+        <div>
+            {% csrf_token %}
+            <h2 class="delete-text">Do you want to delete?</h2>
+        </div>
+        <div class="delete-buttons">
+            <button type="submit" class="yes">Yes</button>
+            <a href="{% url 'group-list' %}" class="no">No</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

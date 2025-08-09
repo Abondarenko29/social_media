@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
+from index.views import close_page
 
 
 urlpatterns = [
@@ -26,5 +27,6 @@ urlpatterns = [
     path("", include("index.urls")),
     path("post/", include("posts.urls")),
     path("groups/", include("groups.urls")),
-    path("chat/", include("chat.urls"))
+    path("chat/", include("chat.urls")),
+    path("close/", close_page, name="close"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

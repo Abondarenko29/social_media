@@ -1,0 +1,86 @@
+{% load static %}
+{% load group_tags %}
+{% load markdownify %}
+{% load markdown_extras %}
+
+{% for article in articles %}
+    <div class="article">
+        <div class="article-info">
+            <div class="article-hat">
+                <div class="flex">
+                    <a class="user-info" href="{% url 'user-details' pk=article.author.pk %}">
+                        {% if article.author.profile.logo %}
+                            <img class="logo-img" src="{{ comment.author.profile.logo.url }}" width="40px" height="40px">
+                        {% else %}
+                            <img class="logo-img" src="{% static 'img/no_photo.png' %}" width="40px" height="40px">
+                        {% endif %}
+                        {{ article.author.username }}
+                    </a>
+                </div>
+                <div>
+                    {{ article.created_at }}
+                    {% if article.created_at != article.changed_at %}
+                        (changed: {{ article.changed_at }})
+                    {% endif %}
+                    <button onclick="showMenu({{article.pk}})" class="menu-button">⫶</button>
+                    <div class="menu flex closed" id="inner-menu{{ article.pk }}">
+                        <a href="{% url 'article-update' pk=article.pk %}">Edit</a>
+                        <a href="{% url 'article-delete' pk=article.pk %}">Delete</a>
+                        <form method="get" action="{% url 'article-create' %}">
+                            <input type="hidden" name="parrent_article" value="{{ article.pk }}">
+                            <input type="hidden" name="group" value="{{ article.group.pk }}">
+                            <button type="submit" class="">Answer</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="flex title">
+                <h3>{{ article.title }}</h3>
+                <form method="post" action="{% url 'article-like-create' pk=article.pk %}" class="title">
+                    {% csrf_token %}
+                    <input type="hidden" name="article-like-form" value="True">
+                    {{ article.likes.count }}
+                    {% if article.pk|is_articlelike_author:request.user.pk %}
+                        <button type="submit" class="like-btn small active">❤</button>
+                    {% else %}
+                        <button type="submit" class="like-btn small">❤</button>
+                    {% endif %}
+                    <input type="hidden" value="{{ article.pk }}" name="post">
+                </form>
+            </div>
+        </div>
+        <div class="article-content">
+            {{ article.content|markdownify|linebreaks }}
+            <div class="article-media">
+            {% for media in article.media.all %}
+                {% if media.media.url|is_video %}
+                    <video class="control-width" controls>
+                        <source src="{{ media.media.url }}"></source>
+                    </video>
+                {% elif media.media.url|is_image %}
+                    <img class="materialboxed control-width" src="{{ media.media.url }}">
+                {% elif media.media.url|is_audio %}
+                    <audio controls class="control-width">
+                        <source src="{{ media.media.url }}"></source>
+                    </audio>
+                {% else %}
+                    <a class="media-details" href="{{ media.media.url }}">{{ media.media.name }}</a>
+                {% endif %}
+            {% endfor %}
+            </div>
+            </div>
+        <div class="article-footer">
+            <div class="flex">
+                {% if article.dother_articles.exists %}
+                    <button onclick="toggleReplies({{ article.pk }}, this)" class="replies">Replies ↷</button>
+                {% else %}
+                    <empty></empty>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+        <div class="replied_articles closed" id="article-list{{ article.pk }}">
+            {% include 'groups/group_articles.html' with articles=article|filter:group %}
+        </div>
+    <script src="{% static 'js/groups/main.js' %}"></script>
+{% endfor %}

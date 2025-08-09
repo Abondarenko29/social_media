@@ -1,11 +1,14 @@
+{% extends 'base.html' %}
+
 {% load static %}
-{% load customtags %}
+{% load chat_tags %}
 
 {% block link %}
     <link rel="stylesheet" href="{% static 'css/chat/chat.css' %}">
 {% endblock %}
 
 {% block content %}
+<div class="chat-body">
     <div class="hat">
         <div class="line">
             <div class="flex">
@@ -22,4 +25,85 @@
             </div>
         </div>
     </div>
+    <div class="message-list">
+        {% for message in chat_messages %}
+            {% if message.adresat == request.user %}
+                <div class="right">
+                    <div>
+                        {% if request.user.profile.logo %}
+                            <a href="{% url 'user-details' pk=request.user.pk %}" class="no-decoration">
+                                <img class="logo-img" src="{{ request.user.profile.logo.url }}" width="40px" height="40px">
+                            </a>
+                        {% else %}
+                            <a href="{% url 'user-details' pk=request.user.pk %}" class="no-decoration">
+                                <img class="logo-img" src="{% static 'img/no_photo.png' %}" width="40px" height="40px">
+                            </a>
+                        {% endif %}
+                        <empty class="message-username">{{ request.user.username }}</empty>
+                    </div>
+                    <div>
+                        {{ message.content }}<br>
+                        {% if message.investments.exists %}
+                        {% for media in message.investments.all %}
+                            <a href="{{ media.url }}">{{ media.name }}</a>
+                        {% endfor %}
+                        {% endif %}
+                        <small class="comment-date">
+                            {{ message.created_at }}
+                            {% if message.created_at != message.changed_at %}
+                                (changed: {{ message.changed_at }})
+                            {% endif %}
+                        </small>
+                    </div>
+                </div>
+            {% elif message.adresant == request.user %}
+                <div class="left">
+                    <div>
+                        {% if user.profile.logo %}
+                            <a href="{% url 'user-details' pk=user.pk %}">
+                                <img class="logo-img" src="{{ user.profile.logo.url }}" width="40px" height="40px">
+                            </a>
+                        {% else %}
+                            <a href="{% url 'user-details' pk=user.pk %}">
+                                <img class="logo-img" src="{% static 'img/no_photo.png' %}" width="40px" height="40px">
+                            </a>
+                        {% endif %}
+                        <empty class="message-username">{{ user.username }}</empty>
+                    </div>
+                    <div>
+                        {{ message.content }}<br>
+                        <small class="comment-date">
+                            {{ message.created_at }}
+                            {% if message.created_at != message.changed_at %}
+                                (changed: {{ message.changed_at }})
+                            {% endif %}
+                        </small>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="message-create">
+        <div class="text-message-form">
+            <form method="post">
+                {% csrf_token %}
+                {{ message_form.as_p }}
+                <button type="submit">▷▶</button>
+            </form>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            {{ media_form.as_p }}
+            <button type="submit">+</button>
+        </form>
+    </div>
+</div>
+{% if messages %}
+        {% for message in messages %}
+            <script>
+                alert("{{ message }}");
+            </script>
+        {% endfor %}
+    {% endif %}
+
 {% endblock %}

@@ -4,8 +4,10 @@ from django.contrib.auth.models import User
 
 class Message(models.Model):
     content = models.TextField(null=True)
-    author = models.ForeignKey(User, on_delete=models.SET_NULL,
-                               related_name="messages", null=True)
+    adresat = models.ForeignKey(User, on_delete=models.SET_NULL,
+                                related_name="sended_messages", null=True)
+    adresant = models.ForeignKey(User, on_delete=models.SET_NULL,
+                                 related_name="got_messages", null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     changed_at = models.DateTimeField(auto_now=True)
 

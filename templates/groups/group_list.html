@@ -10,16 +10,19 @@
 
 {% block content %}
 <div class="group_list_body">
-  <form class="flex">
+  <form class="flex group-hat">
     <label for="topic" class="topic-label">Category:</label>
-    <select name="topic" onchange="this.form.submit();">
+    <select name="topic" onchange="this.form.submit();"
+      class="topic-select">
       <option selected hidden>{{ choosed }}</option>
       <option value="">All categories</option>
       {% for topic in topics %}
         <option value="{{ topic }}">{{ topic }}</option>
       {% endfor %}
     </select>
-    <a class="add-group-button" href="{% url 'group-create' %}">+</a>
+    <a href="{% url 'group-create' %}" >
+      <img src="{% static 'img/add_group.png' %}" class="add-group-button">
+    </a>
   </form>
   {% for group in groups %}
     <div class="p-card">
@@ -33,12 +36,14 @@
             {{ group.owner.username }}
         </a>
         <div>
-          <a href="{% url 'group-update' pk=group.pk %}" class="small-margin-right">🛠</a>
-          <a href="#">⇲</a>
+          <a href="{% url 'group-update' pk=group.pk %}" class="small-margin-right">🛠</a>|
+          <a href="{% url 'group-delete' pk=group.pk %}" class="small-margin-right">🗑</a>
         </div>
       </div>
       <hr class="u-sv1">
-      <h3>{{ group.title }}</h3>
+      <a href="{% url 'group-details' pk=group.pk %}">
+        <h3>{{ group.title }}</h3>
+      </a>
       <p class="p-card__content">{{ group.description|markdownify|linebreaks }}</p>
     </div>
   {% endfor %}

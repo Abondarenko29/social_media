@@ -222,8 +222,14 @@ def like_create(request, pk):
     return redirect("post-details", pk=pk)
 
 
-class CommentUpdateView(LoginRequiredMixin, UpdateView):
+class CommentUpdateView(LoginRequiredMixin, UserIsOwnerMixin, UpdateView):
     model = Comment
     form_class = forms.CommentForm
     template_name = "posts/comment_update.html"
-    success_url = reverse_lazy("post-details", kwargs={"pk": model.post})
+    success_url = reverse_lazy("close")
+
+
+class CommentDeleteView(LoginRequiredMixin, UserIsOwnerMixin, DeleteView):
+    model = Comment
+    template_name = "posts/comment_delete_form.html"
+    success_url = reverse_lazy("close")

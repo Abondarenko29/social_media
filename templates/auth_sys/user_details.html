@@ -14,9 +14,13 @@
                 {% endif %}
                 <h2>{{ user.username }}</h2>
             </div>
-            <div>
+            <div class="flex">
                 <small>created at: {{ user.profile.created_at }}<br>
                                     changed at: {{ user.profile.changed_at }}</small>
+                <div>
+                    <a href="{% url 'follow' pk=user.pk %}">Follow</a>
+                    <a href="{% url 'message-list' user_pk=user.pk %}">Chat</a>
+                </div>
             </div>
         </div>
     </div>

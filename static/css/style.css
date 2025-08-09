@@ -242,22 +242,24 @@ a.user-info {
     justify-content: space-between;
 }
 
-@media (max-width: 1024px) or (min-height:700px) {
-    footer {
-        visibility: hidden;
-    }
+div.widgets {
+    display: flex;
+    z-index: 1;
+    position: fixed;
+    bottom: 5%;
+    left: 5%;
+}
+
+div.widgets a {
+    font-size: xx-large;
+    text-decoration: none;
+}
+
+a.white {
+    color: white;
 }
 
 @media (min-width: 1024px) and (max-height:850px) {
-    footer {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        padding-left: 2%;
-        background-color: rgba(245, 170, 20, 0.7);
-        width: 100%;
-        color: blue;
-    }
     .hat {
         box-shadow:
             5px 5px 5px 10px rgba(245, 170, 20, 0.7);
@@ -320,4 +322,28 @@ a.user-info {
     .sidebar-opened {
         min-width: 25% !important;
     }
+}
+
+.closed {
+  visibility: hidden;
+  height: 0;
+  padding: 0 !important;
+}
+
+.news-list {
+    position: fixed;
+    bottom: 10%;
+    left: 10%;
+    background-color: white;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.news-list a {
+    color: black;
+    text-decoration: none;
+}
+
+.news-list hr {
+    height: 5px;
 }

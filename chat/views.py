@@ -11,32 +11,39 @@ from django.contrib import messages
 class MessageListView(LoginRequiredMixin, View):
     def get(self, request, user_pk):
         user = User.objects.get(pk=user_pk)
+        sending_messages = Message.objects.filter(adresat=user)
+        getting_messages = Message.objects.filter(adresant=user_pk)
+        messages = sending_messages | getting_messages.order_by("created_at")
         context = {
-            "messages": Message.objects.filter(author=user)
+            "user": user,
+            "chat_messages": messages,
+            "message_form": MessageForm,
+            "media_form": MediaForm,
         }
 
         return render(request,
                       "chat/chat.html",
                       context)
 
-    def post(self, request, pk):
+    def post(self, request, user_pk):
         message_form = MessageForm(request.POST)
-        media_form = MediaForm(request.POST)
+        media_form = MediaForm(request.POST, request.FILES)
+        adresant = User.objects.get(pk=user_pk)
 
         if media_form.is_valid():
-            message = message_form.save(commit=False)
-            message.author = request.user
+            message = Message.objects.create(adresat=request.user,
+                                             adresant=adresant,)
             media = media_form.save(commit=False)
             media.message = message
-            message.save()
             media.save()
 
-        elif media_form.is_valid():
-            message = media_form.save(commit=False)
-            message.author = request.user
+        elif message_form.is_valid():
+            message = message_form.save(commit=False)
+            message.adresat = request.user
+            message.adresant = adresant
             message.save()
 
         else:
-            messages.error(f"Some errors: {message_form.errors}")
+            messages.error(request, f"Some errors: {message_form.errors}")
 
-        return redirect("message-list", pk=pk)
+        return redirect("message-list", user_pk=user_pk)

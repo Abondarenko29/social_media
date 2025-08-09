@@ -156,3 +156,16 @@ class UserDetails(DetailView):
         profile = Profile.objects.get(user=user)
         context["profile"] = profile
         return context
+
+
+def follow(request, pk):
+    user = User.objects.get(pk=pk)
+    if user != request.user:
+        if not (request.user in user.profile.followers.all()):
+            user.profile.followers.add(request.user)
+        else:
+            user.profile.followers.remove(request.user)
+
+        return redirect("user-details", pk=pk)
+    else:
+        raise BaseException("You can't follow yourself.")

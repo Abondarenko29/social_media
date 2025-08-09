@@ -14,7 +14,7 @@ def filter(model, post):
 
 
 @register.filter(name="is_like_author")
-def is_author(post_pk, user_pk):
+def is_like_author(post_pk, user_pk):
     user = User.objects.get(pk=user_pk)
     post = Post.objects.get(pk=post_pk)
     comment_obj = Like.objects.filter(post=post, author=user)

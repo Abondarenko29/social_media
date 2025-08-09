@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load group_tags %}
+{% load markdownify %}
+{% load markdown_extras %}
+{% load static %}
+
+{% block link %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/groups/groups.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="group-body">
+    <div class="group-details">
+        <div class="flex group-hat">
+            <div class="group-topic">
+                Topic:
+                <empty class="topic-name">{{ group.topic }}</empty>
+            </div>
+            <div class="title">
+                <h4>{{ group.title }}</h4>
+            </div>
+            <div class="add-article">
+                <form method="get" action="{% url 'article-create' %}">
+                    <input type="hidden" name="group" value="{{ group.pk }}">
+                    <button type="submit" class="add-article">
+                        <img src="{% static 'img/add_group.png' %}" class="add-group-button"></img>
+                    </button>
+                </form>
+            </div>
+        </div>
+        <p class="description">{{ group.description|markdownify|linebreaks }}</p>
+    </div>
+    <p class="">
+        {% include 'groups/group_articles.html' with articles=None|filter:group %}
+    </p>
+</div>
+{% if messages %}
+    {% for message in messages %}
+        <script>
+            alert("{{ message }}");
+        </script>
+    {% endfor %}
+{% endif %}
+<script src="{% static 'js/posts/slides.js' %}"></script>
+{% endblock %}

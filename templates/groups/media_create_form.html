@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block link %}
+    <link rel="stylesheet" href="{% static 'css/groups/groups.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="form">
+    <div class="center">
+        <h2>Step 2: add media</h2>
+    </div>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="field add-file">
+            <input type="hidden" value="{{ article }}" name="article">
+            <input type="file" id="media" name="media" required>
+            <button type="submit" class="">Add file</button>
+        </div>
+
+        <div>
+            {% for media in media %}
+                <div class="media-details">
+                    <div>
+                        <a href="{{ media.media.url }}">{{ media.media.name }}</a>
+                    </div>
+                    <div>
+                        <a href="{% url 'media-delete' pk=media.pk %}">❌</a>
+                    </div>
+                </div>
+            {% endfor %}
+    </form>
+    <a class="next-button" href="{% url 'group-details' pk=pk %}">End creating/updating</a>
+</div>
+{% endblock %}

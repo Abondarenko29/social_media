@@ -1,5 +1,5 @@
 {% load static %}
-{% load customtags %}
+{% load post_tags %}
 
 {% for comment in comments %}
     <div class="comment">
@@ -49,8 +49,8 @@
             </div>
         </div>
         <div class="menu flex closed" id="inner-menu{{ comment.pk }}">
-            <a href="{% url 'comment-update' pk=comment.pk %}" data-popup="yes">Edit</a>
-            <a href="#" data-popup="yes">Delete</a>
+            <a onclick="newWindow('{% url 'comment-update' pk=comment.pk %}')">Edit</a>
+            <a onclick="newWindow('{% url 'comment-delete' pk=comment.pk %}')">Delete</a>
         </div>
     </div>
     <div class="comment-form not-main closed" id="comment-form{{ comment.pk }}">
@@ -58,7 +58,7 @@
             {% csrf_token %}
             <input type="hidden" name="replied_comment" value="{{ comment.pk }}">
             {{ comment_form.as_p }}
-            <button type="submit" class="">✔</button>
+            <button type="submit" class="">Answer</button>
         </form>
     </div>
     <div class="replied_comments closed" id="comment-list{{ comment.pk }}">

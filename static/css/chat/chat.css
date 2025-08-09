@@ -1,0 +1,54 @@
+.chat-body {
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.chat-body .hat {
+    margin-bottom: 3%;
+}
+
+.message-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.message-list .right, .message-list .left {
+    padding: 1%;
+    background-color: white;
+    margin-bottom: 3%;
+    border: 2px solid rgb(245, 170, 20);
+    border-radius: 25px;
+    word-wrap:break-word;
+    max-width: 50%;
+}
+
+.message-left .left {
+    align-self: flex-start;
+}
+
+.message-list .right {
+    align-self: flex-end;
+}
+
+.message-create input, .message-create label {
+    color: white !important;
+}
+
+.comment-date {
+    font-size: 10px;
+}
+
+.no-decoration {
+    text-decoration: none;
+}
+
+.message-username {
+    font-size: 20px;
+    color:rgb(15, 0, 150);
+}
+
+div.message-form {
+  color: yellow;
+  margin-left: 10px;
+  padding-top: 30px;
+}

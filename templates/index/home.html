@@ -1,11 +1,42 @@
 {% extends 'base.html' %}
+{% load index_tags %}
+{% load static %}
 
 {% block content %}
-    {% if messages %}
-        {% for message in messages %}
-            <script>
-                alert("{{ message }}")
-            </script>
-        {% endfor %}
-    {% endif %}
+{% if request.user.is_authenticated %}
+    {% for post in posts %}
+        <div>
+            <div class="">
+                {% if post.content|is_image %}
+                    <img src="{% url 'post.content.url' %}" class="materialboxed">
+                {% elif post.content.is_video %}
+                    <video controls>
+                        <source src="{% url 'post.content.url' %}"></source>
+                    </video>
+                {% endif %}
+            </div>
+            <div class="">
+                <h2>{{ post.title }}</h2>
+                <a class="user-info" href="{% url 'user-details' pk=comment.author.pk %}">
+                    {% if comment.author.profile.logo %}
+                        <img class="logo-img" src="{{ comment.author.profile.logo.url }}" width="40px" height="40px">
+                    {% else %}
+                        <img class="logo-img" src="{% static 'img/no_photo.png' %}" width="40px" height="40px">
+                    {% endif %}
+                    {{ comment.author.username }}
+                </a>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <a class="" href="{% url 'login' %}">Login</a>
+    <a class="" href="{% url 'register' %}">Register</a>
+{% endif %}
+{% if messages %}
+    {% for message in messages %}
+        <script>
+            alert("{{ message }}")
+        </script>
+    {% endfor %}
+{% endif %}
 {% endblock %}

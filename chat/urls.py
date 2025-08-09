@@ -3,6 +3,6 @@ from chat.views import MessageListView
 
 
 urlpatterns = [
-    path("<int:pk>/", MessageListView.as_view(),
+    path("<int:user_pk>/", MessageListView.as_view(),
          name="message-list")
 ]

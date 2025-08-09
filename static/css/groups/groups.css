@@ -33,15 +33,13 @@ div.group_list_body {
 
 .add-group-button {
     display: flex;
-    border: 1px solid rgb(120, 20, 60);
     position: relative;
     margin-bottom: 20px;
     margin-left: 10px;
-    background-color: rgb(220, 20, 60);
     border-radius: 50%;
     justify-content: center;
     align-items: center;
-    font-weight: bold;
+    height: 5ch;
 }
 
 .add-group-button,
@@ -54,6 +52,199 @@ div.group_list_body {
 }
 
 .add-group-button:hover {
-    border: 1px solid rgb(220, 20, 60);
-    background-color: rgb(255, 20, 60);
+    border: 1px solid rgb(255, 230, 0);
+}
+
+.add-article, .add-article:hover {
+    background-color: transparent;
+}
+
+.add-article {
+    border: none;
+}
+
+.group-body {
+    margin: 2%;
+    color: rgb(245, 170, 20);
+}
+
+.group-details {
+    margin: 2%;
+    border: 2px dotted rgba(255, 255, 255, 0.3);
+    padding: 1vw;
+    box-shadow: 0px 0px 10px 5px rgb(0, 0, 180);
+}
+
+.group-topic {
+    display: flex;
+    align-items: center;
+}
+
+.group-topic .topic-name {
+    border: 1px solid white;
+    margin-right: 2vw;
+    padding: 0.5lh;
+    border-radius: 23px;
+    margin-left: 10%;
+}
+
+.group-topic .topic-label {
+    margin-bottom: 0.3lh;
+}
+
+.group-details .group-hat {
+    align-items: center;
+    justify-content: space-between;
+}
+
+.like-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-bottom: 0;
+  background-color: transparent;
+  border: none;
+  font-size: 300%;
+  padding: 0;
+  color: #717171;
+}
+
+.like-btn.small {
+  width: 30px;
+  height: 30px;
+  font-size: 150%;
+}
+
+.like-btn:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  color: red;
+
+}.like-btn.active {
+  color: red;
+}
+
+.like-btn.active:hover {
+  color: #717171;
+}
+
+.menu-button {
+  position: absolute;
+  background-color: transparent;
+  color: rgb(245, 170, 20);
+  border: none;
+  border-radius: 50%;
+}
+
+.menu-button:hover {
+  background-color: rgba(0, 0, 200, 0.5);
+}
+
+.menu {
+  position: absolute;
+  flex-direction: column;
+  align-items: flex-end;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 2%;
+  margin-right: 80%;
+  border-radius: 25px;
+  margin-top: 2vh;
+}
+
+.menu a {
+  text-decoration: none;
+  color: black;
+}
+
+.article-hat {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1vh;
+}
+
+.article-info {
+    margin-right: 50%;
+}
+
+@media (max-width: 700px) {
+    .menu {
+        margin-right: 60%;
+    }
+    .article-info {
+        margin-right: 20%;
+    }
+}
+
+div.title {
+    justify-content: space-between;
+}
+
+form.title {
+    align-items: center;
+}
+
+.article-content {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    margin-right: 50%;
+    word-wrap: break-word;
+    padding: 1%;
+    border-radius: 15px;
+}
+
+.article {
+    margin-bottom: 5%;
+}
+
+.media-details {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid white;
+    padding: 1.5%;
+    margin-bottom: 2%;
+    border-radius: 20px;
+    background-color: rgba(245, 170, 20, 0.9);
+}
+
+.media-details a, a.media-details {
+    color: rgb(0, 0, 140);
+    text-decoration: none;
+    font-weight: inherit;
+}
+
+.field.add-file {
+    display: flex;
+}
+
+.field.add-file button {
+    border-radius: 20px;
+    background-color: transparent;
+    color: rgb(245, 170, 20);
+}
+
+.next-button {
+    display: flex;
+    position: relative;
+    margin-top: 15%;
+    width: 100%;
+    border-radius: 30px;
+    background-color: white;
+    color: blue;
+    text-decoration: none;
+    padding: 2%;
+    justify-content: center;
+}
+
+.next-button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: rgb(245, 170, 20);
+    text-decoration: none;
+}
+
+.article-footer {
+    margin-top: 1%;
+}
+
+.article-footer button {
+    background-color: transparent;
+    border-radius: 20px;
+    color: rgb(245, 170, 20);
 }

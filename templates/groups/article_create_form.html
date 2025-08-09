@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="form">
+    <div class="center">
+        <h2>Step 1: fill the required information.</h2>
+    </div>
+    <form method="post" enctype="multipart/form-data" id="required-textarea">
+        {% csrf_token %}
+        <input type="hidden" name="parrent_article" value="{{ parrent_article_pk }}">
+        <input type="hidden" name="group" value="{{ group_pk }}">
+
+        {% for field in form %}
+            <div class="field">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    <div class="red">{{ field.errors }}</div>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        {% if messages %}
+            <div>
+                {% for message in messages %}
+                    <p class="red">{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        <button type="submit" class="submit-form">Next</button>
+    </form>
+</div>
+<script src="{% static 'js/groups/main.js' %}"></script>
+{% endblock %}

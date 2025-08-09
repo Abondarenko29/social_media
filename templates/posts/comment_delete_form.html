@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="form center">
+    <form method="post">
+        <div>
+            {% csrf_token %}
+            <h2 class="delete-text">Do you want to delete?</h2>
+            <p>If you delete this comment, all replies will be deleted. Be careful!</p>
+        </div>
+        <div class="delete-buttons">
+            <button type="submit" class="yes">Yes</button>
+            <a href="{% url 'close' %}" class="no">No</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

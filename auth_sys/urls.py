@@ -14,4 +14,5 @@ urlpatterns = [
     path("<int:pk>/", views.UserDetails.as_view(), name="user-details"),
     path("register/profile/", views.ProfileUpdateView.as_view(),
          name="profile-update"),
+    path("<int:pk>/follow/", views.follow, name="follow")
 ]

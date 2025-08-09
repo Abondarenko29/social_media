@@ -1,0 +1,10 @@
+{% load news %}
+
+<body class="news-body">
+    {% for message in request|messages %}
+        <div class="">
+            {{ message|safe }}
+            <hr>
+        </div>
+    {% endfor %}
+</body>
